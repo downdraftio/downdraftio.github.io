@@ -1,0 +1,99 @@
+html {
+	background: rgb(36, 35, 43); 
+}
+.inputfield { 
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	top: 75%; 
+	transform: translate(-50%, -25%);
+	background: none; 
+	outline: none;
+	border: white solid 5px; 
+	border-radius: 10px;
+	width: 400px; 
+	height: 50px;
+	color: white; 
+	font-weight: bolder;
+	font-size: 30px;
+}
+.guessbutton { 
+	color: white;
+	font-size: 20px; 
+	font-weight: bolder;
+	background: lime; 
+	position: absolute; 
+	left: 50%; 
+	top: 85%;
+	transform: translate(-50%, -15%);
+	outline: none;
+	border: white solid 5px; 
+	width: 200px;
+	height: 50px;
+	border-radius: 10px;
+	animation: rotation 4s infinite; 
+}
+
+.riddle { 
+	width: 100%; 
+	height: 200px; 
+	text-align: center;
+	vertical-align: middle; 
+	position: absolute;
+	left: 50%; 
+	top: 45%; 
+	font-size: 60px; 
+	transform: translate(-50%, -55%); 
+	font-weight: bold;
+	color: white; 
+}
+
+.text { 
+    font-weight: bolder;
+    color: white; 
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.center { 
+    position: absolute;
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+.inittext { 
+    font-size: 75px;
+}
+
+.initwait {
+    width: 500px; 
+    height: 200px; 
+}
+
+.initlogo {
+    display: none; 
+    position: absolute;
+    background: url("tornado.png");
+    width: 134px;
+    height: 200px;
+    top: 20%; 
+    animation: yrotate 2s infinite; 
+}
+
+.track { 
+	position: absolute;
+	top: 5%; 
+	left: 50%;
+	font-size: 50px;
+	transform: translate(-50%, -5%);
+}
+
+@keyframes yrotate { 
+    from{transform: rotateY(0deg)}
+    to{transform: rotateY(360deg)}
+}
+
+@keyframes rotation { 
+	25%{transform: translate(-50%, -15%) rotate(-5deg)}
+	75%{transform: translate(-50%, -15%) rotate(5deg)}
+}
