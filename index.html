@@ -1,0 +1,143 @@
+<html> 
+<head> 
+<title> Downdraft </title>
+
+<link rel="stylesheet" href="style.css"> 
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
+</head>
+<body> 
+
+<div class="initwait center"> 
+	<div class="inittext text center"> downdraft </div>
+	<div class="initlogo"> </div>
+</div>
+
+<div class="content" style="display: none"> 
+<div class="track" id="track">⬛⬛⬛</div>
+<div id="riddle" class="Riddle"> To lift or haul... what am I? </div>
+<div> <input placeholder="Riddle me this" type="text"class="inputfield"> </input> </div> 
+<button type="submit" class="guessbutton"> Guess </button> 
+</div> 
+
+
+
+<audio id="foghorn" type="audio/mp3" src="foghorn.mp3"> </audio>
+<audio id="hood" type="audio/mp3" src="hoodclassic.mp3"> </audio>
+<audio id="right" type="audio/mp3" src="thatsit.mp3"> </audio>
+<audio id="slip" type="audio/mp3" src="slip.mp3"> </audio>
+
+<script>
+	let answer = ["heave", "Heave"];
+	let submission = document.querySelector(".inputfield").value;
+	let foghorn = document.getElementById("foghorn"); 
+	let slip = document.getElementById("slip"); 
+	let guess = 0;  
+	let word = 0; 
+
+// Define a class for the main page
+class main {
+    // The constructor takes the elements to animate as parameters
+    constructor(initText, initLogo, initWait, content) {
+        this.initText = initText;
+        this.initLogo = initLogo;
+        this.initWait = initWait;
+		this.content = content;
+    }
+
+    // This method runs before the page is fully loaded
+    preinit() {
+        // Animate the downdraft initializing text to the right
+        this.initText.animate({right: "0%"}, 500);
+
+        // Fade in the the downdraft logo and allow for more animations for the class
+        this.initLogo.fadeIn({queue: false}, 500);
+
+        // Animate the logo element to the center of the initializing container
+        this.initLogo.animate({top: "0%"}, 500);
+
+        // Randomly picks a message from an array 
+        const message = ["Welcome", "What's Up", "Bonjour", "Hey there!", "Hello World"]; 
+        const messagepicker = (Math.floor(Math.random() * message.length)); 
+
+        // Takes the radom message and makes it the document title
+        document.title = message[messagepicker]; 
+    }
+
+    // This method runs after the page is fully loaded
+    init() {
+        this.initWait.fadeOut(500);
+        setTimeout(() => {this.initWait.remove();}, 500);  
+        console.log("Initialization Completed");
+		setTimeout(()=>{this.content.fadeIn(4000);},1000);
+    }
+
+	check() { 
+		submission = document.querySelector(".inputfield").value;
+		let riddle = document.getElementById("riddle"); 
+			if (answer.includes(submission) && guess<3) {
+				slip.play();
+				word = word + 1; 
+				Swal.fire({
+  				title: 'Correct!',
+  				icon: 'success'
+				});
+				guess = 0; 
+				document.querySelector(".inputfield").value = "";
+				document.getElementById("track").innerHTML = "⬛⬛⬛";
+				if (word === 1) {
+					answer = ["stocky", "Stocky"];
+					riddle.innerHTML = "Bla bla bla"; 
+				}
+			}
+			else {
+				if (guess<3) {
+				foghorn.play(); 
+				Swal.fire({
+  				title: 'Your father left you',
+  				icon: 'error'
+				})
+				if (guess === 2) {
+				guess = guess + 1; 
+				document.getElementById("track").innerHTML = "🟥🟥🟥"
+				}
+				if (guess === 1) {
+				guess = guess + 1; 
+				document.getElementById("track").innerHTML = "🟥🟥⬛"
+				}
+				if (guess === 0) {
+				guess = guess + 1; 
+				document.getElementById("track").innerHTML = "🟥⬛⬛"
+				}	 
+				}
+				else {
+				Swal.fire({
+  				title: 'You Lose! Answer: ' + answer + ' This session will close automatically',
+  				icon: 'error'
+				});
+				setTimeout(() => {location.reload();}, 5000);
+				}
+		}
+		}
+	}
+
+// Create an instance of the downdraft page class with the elements to animate
+let downdraftPage = new main($(".inittext"), $(".initlogo"), $(".initwait"), $(".content"));
+
+// Call the preinit method before the page is fully loaded
+downdraftPage.preinit();
+
+// Call the init method after the page is fully loaded
+$(document).ready(() => {
+    downdraftPage.init();
+});
+
+$(".guessbutton").click(function() {
+  // this refers to the element with class guessbutton that was clicked
+  downdraftPage.check(this);
+});
+</script> 
+
+</body>
+</html> 
