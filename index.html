@@ -89,15 +89,78 @@ class main {
 				document.querySelector(".inputfield").value = "";
 				document.getElementById("track").innerHTML = "⬛⬛⬛";
 				if (word === 1) {
+					answer = ["cunning", "Cunning"];
+					riddle.innerHTML = "I would describe you as this word because you would be clever if you figured out who I am, what am I?"; 
+				}
+				if (word === 2) {
+					answer = ["incredulous", "Incredulous"];
+					riddle.innerHTML = "My freind has really been acting x latley he never believes me 😭 what am I?"
+				}
+				if (word === 3) {
+					answer = ["bleakly", "Bleakly", "bleak", "Bleak"];
+					riddle.innerHTML = "There is no hope that you will solve this riddle, one might even describe this situation as gloomy what am I?"; 
+				}
+				if (word === 4) {
+					answer = ["haste", "Haste", "hastily", "Hastily"];
+					riddle.innerHTML = "To be done with urgency what am I?"; 
+				}
+				if (word === 5) {
+					answer = ["gallantly", "Gallantly", "gallant", "Gallant"];
+					riddle.innerHTML = "I've been so brave latley one may even describe me as acting this word, what am I?"; 
+				}
+				if (word === 6) {
+					answer = ["scowl", "Scowl"];
+					riddle.innerHTML = "My bozo aunt has really been frowning down at me and x at me for NO REASON! What am I?"; 
+				}
+				if (word === 7) {
+					answer = ["wince", "Wince"];
+					riddle.innerHTML = "I flinch from pain or fear what am I?"; 
+				}
+				if (word === 8) {
 					answer = ["stocky", "Stocky"];
-					riddle.innerHTML = "Bla bla bla"; 
+					riddle.innerHTML = "I'm used to describe someone who is broadly and strongly built what am I?"; 
+				}
+				if (word === 9) {
+					answer = ["aloofness", "Aloofness"];
+					riddle.innerHTML = "You seem to have a lot of x to this riddle, one might even describe you as unintrested... What am I?"; 
+				}
+				if (word === 10) {
+					answer = ["ornery", "Ornery"];
+					riddle.innerHTML ="You probably got the last one wrong somebody your mood as grumpy or this word... What am I?";
+				}
+				if (word === 11) {
+					answer = ["gingerly", "Gingerly"];
+					riddle.innerHTML = "I'm do something in a careful manner what am I?"; 
+				}
+				if (word === 12) {
+					answer = ["roguishly", "Roguishly"];
+					riddle.innerHTML = "In a devious manner; quite mischievous latley if you will what am I?"; 
+				}
+				if (word === 13) {
+					answer = ["scatterbrained", "Scatterbrained", "scatterbrain", "scatterbrain"];
+					riddle.innerHTML = "I'm someone who is dumb or incapalbe of thinking what am I?"; 
+				}
+				if (word === 14) {
+					answer = ["unfathomable", "Unfathomable"];
+					riddle.innerHTML = "It is unfathomable that you are going to guess who I am, what am I?"; 
+				}
+				if (word === 15) {
+					let hood = document.getElementById("hood"); 
+					let right = document.getElementById("right"); 
+					setTimeout(()=>{location.reload();}, 10000);
+					hood.play();
+					right.play(); 
+					Swal.fire({
+  					title: "Congrats you solved all 15 riddles and you've got nothing to show for it because this session will close in a few seconds💀",
+  					icon: 'success'
+				});
 				}
 			}
 			else {
 				if (guess<3) {
 				foghorn.play(); 
 				Swal.fire({
-  				title: 'Your father left you',
+  				title: 'Womp Womp you got it wrong💀😭',
   				icon: 'error'
 				})
 				if (guess === 2) {
