@@ -15,7 +15,7 @@
 </div>
 
 <div class="content" style="display: none"> 
-<div class="version text"> Alpha 0.1 </div>
+<div class="version text"> This site is down for maintnence and is expected to be back up in 5:00pm </div>
 <div class="track" id="track">⬛⬛⬛</div>
 <div id="riddle" class="Riddle"> To lift or haul... what am I? </div>
 <div> <input placeholder="Riddle me this" type="text"class="inputfield"> </input> </div> 
@@ -72,7 +72,7 @@ class main {
         this.initWait.fadeOut(500);
         setTimeout(() => {this.initWait.remove();}, 500);  
         console.log("Initialization Completed");
-		setTimeout(()=>{this.content.fadeIn(4000); this.version.fadeOut(10000)},1000);
+		setTimeout(()=>{ this.version.fadeOut(10000)},1000);
     }
 
 	check() { 
