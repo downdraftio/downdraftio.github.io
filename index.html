@@ -14,12 +14,25 @@
 	<div class="initlogo"> </div>
 </div>
 
-<div class="version text"> This site is down for maintnence and is expected to be back up in 5:00pm </div>
 <div class="content" style="display: none"> 
-<div class="track" id="track">⬛⬛⬛</div>
-<div id="riddle" class="Riddle"> To lift or haul... what am I? </div>
-<div> <input placeholder="Riddle me this" type="text"class="inputfield"> </input> </div> 
-<button type="submit" class="guessbutton"> Guess </button> 
+<div class="track text" id="track">🟩🟩🟩</div>
+<div class="slotscontainer"> 
+<div class="slotsroutes"> 
+<div class="slotrouteonecon"> <div class="slotroute1"> </div> </div>
+<div class="slotroutetwocon"> <div class="slotroute2"> </div> </div>
+<div class="slotroutethreecon"> <div class="slotroute3"> </div> </div>
+</div>
+</div>
+
+<div class="MoneyContainer"> <div id="Money" class="Money text"> $0 </div> </div>
+
+<button class="Spin"> Spin! </button>
+<button class="Guess"> Guess! </button>
+
+
+<div class="version text"> Alpha 0.1 </div>
+<div> <input placeholder="Answer" type="text"class="inputfield"> </input> </div>
+		
 </div> 
 
 
@@ -28,14 +41,28 @@
 <audio id="hood" type="audio/mp3" src="hoodclassic.mp3"> </audio>
 <audio id="right" type="audio/mp3" src="thatsit.mp3"> </audio>
 <audio id="slip" type="audio/mp3" src="slip.mp3"> </audio>
+<audio id="soul" type="audio/mp3" src="soul.mp3" loop> </audio>
+<audio id="slotspin" type="audio/ogg" src="slotsspin.ogg"> </audio>
+<audio id="bigwin" type="audio/mp3" src="bigwin.mp3"> </audio>
 
 <script>
 	let answer = ["heave", "Heave"];
 	let submission = document.querySelector(".inputfield").value;
 	let foghorn = document.getElementById("foghorn"); 
 	let slip = document.getElementById("slip"); 
+	let hood = document.getElementById("hood"); 
+	let right = document.getElementById("right"); 
+  let soul = document.getElementById("soul"); 
+  let bigwin = document.getElementById("bigwin"); 
 	let guess = 0;  
 	let word = 0; 
+  let Spins = 3; 
+  let Ma = 0; 
+  let Mas; 
+  let Moneycon = document.getElementById("Money"); 
+  let Spinning = false; 
+  let spinbutton = document.getElementsByClassName(".Spin");
+  let guessbutton = document.getElementsByClassName(".Guess");
 
 // Define a class for the main page
 class main {
@@ -46,7 +73,19 @@ class main {
         this.initWait = initWait;
 		this.content = content;
 		this.version = version; 
+
+    $(".Spin").click(function() {
+      // this refers to the element with class guessbutton that was clicked
+      downdraftPage.addslots(); 
+    });
+
+    $(".Guess").click(function() {
+      // this refers to the element with class guessbutton that was clicked
+      downdraftPage.check(); 
+    });
+
     }
+
 
     // This method runs before the page is fully loaded
     preinit() {
@@ -72,120 +111,1060 @@ class main {
         this.initWait.fadeOut(500);
         setTimeout(() => {this.initWait.remove();}, 500);  
         console.log("Initialization Completed");
-		setTimeout(()=>{this.version.fadeIn(10000);},1000);
+		setTimeout(()=>{this.content.fadeIn(4000); this.version.fadeOut(10000)},1000);
     }
 
+
+ addslots() {
+  soul.play(); 
+  if (Spins > 0) {
+  if (Spinning == false) {
+  Spinning = true; 
+  spinbutton.disabled = true;
+  setTimeout(() => { spinbutton.disabled = false; Spinning = false; }, 7000); 
+  trackf(); 
+  Spins = Spins -1; 
+    // use three global variables to store the intervals
+let interval1 = null;
+let interval2 = null;
+let interval3 = null;
+
+  // clear the previous intervals if they exist
+  if (interval1) {
+    clearInterval(interval1);
+  }
+  if (interval2) {
+    clearInterval(interval2);
+  }
+  if (interval3) {
+    clearInterval(interval3);
+  }
+  // get the three slot elements
+  let slotrouteone = document.querySelector(".slotroute1");
+  let slotroutetwo = document.querySelector(".slotroute2");
+  let slotroutethree = document.querySelector(".slotroute3");
+  // create three order arrays
+  let orderone = [];
+  let ordertwo = [];
+  let orderthree = [];
+  // create a constant array of emojis
+  const randomorder = ["🍅","🍇","🍈","🍉","🍊","🍌","🍍","🍑","🍒","🍓","🍋","🍐","🥧","🍎","🍏","🥑","🥝","🥭"];
+  const randomorder2 = ["🍅","🍇","🍈","🍉","🍊","🍌","🍍","🍑","🍒","🍓","🍋","🍐","🥧","🍎","🍏","🥑","🥝","🥭"];
+  const randomorder3 = ["🍅","🍇","🍈","🍉","🍊","🍌","🍍","🍑","🍒","🍓","🍋","🍐","🥧","🍎","🍏","🥑","🥝","🥭"];
+  // use while loops to generate the orders
+  while (randomorder.length > 0) { 
+    // use splice to get the removed element
+    const decidedorder = (Math.floor(Math.random() * randomorder.length)); 
+    const item = randomorder.splice(decidedorder, 1)[0];
+    orderone.push(item);
+    orderthree.push(item);
+  }
+
+  while (randomorder2.length > 0) { 
+    // use splice to get the removed element
+    const decidedorder2 = (Math.floor(Math.random() * randomorder2.length)); 
+    const item = randomorder2.splice(decidedorder2, 1)[0];
+    ordertwo.push(item);
+  }
+
+  while (randomorder3.length > 0) { 
+    // use splice to get the removed element
+    const decidedorder3 = (Math.floor(Math.random() * randomorder3.length)); 
+    const item = randomorder3.splice(decidedorder3, 1)[0];
+    orderthree.push(item);
+  }
+  // use shift to get the first elements of the orders
+  const item1 = orderone.shift();
+  const item2 = ordertwo.shift();
+  const item3 = orderthree.shift();
+  // use textContent or innerHTML with items directly
+  slotrouteone.textContent = item1;
+  slotroutetwo.textContent = item2;
+  slotroutethree.textContent = item3;
+  // assign the new intervals to the global variables
+  // use different delays for each interval
+  interval1 = setInterval(() => {
+    // use shift to get the first element of orderone
+    const item1 = orderone.shift();
+    // use textContent or innerHTML with item directly
+    slotrouteone.textContent = item1;
+    // clear interval when orderone is empty
+    if (orderone.length === 0) {
+      clearInterval(interval1); // this will stop the code
+    }
+  }, 100);
+  
+   interval2 = setInterval(() => {
+    // use shift to get the first element of ordertwo
+    const item2 = ordertwo.shift();
+    // use textContent or innerHTML with item directly
+    slotroutetwo.textContent = item2;
+    // clear interval when ordertwo is empty
+    if (ordertwo.length === 0) {
+      clearInterval(interval2); // this will stop the code
+    }
+   }, 120); // use a slightly longer delay for the second slot
+   
+   interval3 = setInterval(() => {
+    // use shift to get the first element of orderthree
+    const item3 = orderthree.shift();
+    // use textContent or innerHTML with item directly
+    slotroutethree.textContent = item3;
+    // clear interval when orderthree is empty
+    if (orderthree.length === 0) {
+      clearInterval(interval3); // this will stop the code
+      if (item1 === item2 || item2 === item3 || item1 === item3) {
+        bigwin.play();
+        Ma = Ma + 10000;
+        Mas = Ma.toString(); 
+        Money.innerHTML = "$" + Mas;
+      }
+   }}, 140); // use a slightly longer delay for the third slot
+  }} else { 
+    swal.fire({
+      title: "You need more credits to spin click guess to earn them🥺",
+      icon: "error",
+    });
+    foghorn.play(); 
+  }}
+
+
+
 	check() { 
-		submission = document.querySelector(".inputfield").value;
-		let riddle = document.getElementById("riddle"); 
-			if (answer.includes(submission) && guess<=3) {
-				slip.play();
-				word = word + 1; 
-				Swal.fire({
-  				title: 'Correct!',
-  				icon: 'success'
-				});
-				guess = 0; 
-				document.querySelector(".inputfield").value = "";
-				document.getElementById("track").innerHTML = "⬛⬛⬛";
-				if (word === 1) {
-					answer = ["cunning", "Cunning"];
-					riddle.innerHTML = "I would describe you as this word because you would be clever if you figured out who I am, what am I?"; 
-				}
-				if (word === 2) {
-					answer = ["incredulous", "Incredulous"];
-					riddle.innerHTML = "My freind has really been acting x latley he never believes me 😭 what am I?"
-				}
-				if (word === 3) {
-					answer = ["bleakly", "Bleakly", "bleak", "Bleak"];
-					riddle.innerHTML = "There is no hope that you will solve this riddle, one might even describe this situation as gloomy what am I?"; 
-				}
-				if (word === 4) {
-					answer = ["haste", "Haste", "hastily", "Hastily"];
-					riddle.innerHTML = "To be done with urgency what am I?"; 
-				}
-				if (word === 5) {
-					answer = ["gallantly", "Gallantly", "gallant", "Gallant"];
-					riddle.innerHTML = "I've been so brave latley one may even describe me as acting this word, what am I?"; 
-				}
-				if (word === 6) {
-					answer = ["scowl", "Scowl"];
-					riddle.innerHTML = "My bozo aunt has really been frowning down at me and x at me for NO REASON! What am I?"; 
-				}
-				if (word === 7) {
-					answer = ["wince", "Wince"];
-					riddle.innerHTML = "I flinch from pain or fear what am I?"; 
-				}
-				if (word === 8) {
-					answer = ["stocky", "Stocky"];
-					riddle.innerHTML = "I'm used to describe someone who is broadly and strongly built what am I?"; 
-				}
-				if (word === 9) {
-					answer = ["aloofness", "Aloofness"];
-					riddle.innerHTML = "You seem to have a lot of x to this riddle, one might even describe you as unintrested... What am I?"; 
-				}
-				if (word === 10) {
-					answer = ["ornery", "Ornery"];
-					riddle.innerHTML ="You probably got the last one wrong somebody your mood as grumpy or this word... What am I?";
-				}
-				if (word === 11) {
-					answer = ["gingerly", "Gingerly"];
-					riddle.innerHTML = "I'm do something in a careful manner what am I?"; 
-				}
-				if (word === 12) {
-					answer = ["roguishly", "Roguishly"];
-					riddle.innerHTML = "In a devious manner; quite mischievous latley if you will what am I?"; 
-				}
-				if (word === 13) {
-					answer = ["scatterbrained", "Scatterbrained", "scatterbrain", "scatterbrain"];
-					riddle.innerHTML = "I'm someone who is dumb or incapalbe of thinking what am I?"; 
-				}
-				if (word === 14) {
-					answer = ["unfathomable", "Unfathomable"];
-					riddle.innerHTML = "It is unfathomable that you are going to guess who I am, what am I?"; 
-				}
-				if (word === 15) {
-					let hood = document.getElementById("hood"); 
-					let right = document.getElementById("right"); 
-					setTimeout(()=>{location.reload();}, 10000);
-					hood.play();
-					right.play(); 
-					Swal.fire({
-  					title: "Congrats you solved all 15 riddles and you've got nothing to show for it because this session will close in a few seconds💀",
-  					icon: 'success'
-				});
-				}
-			}
-			else {
-				if (guess<3) {
-				foghorn.play(); 
-				Swal.fire({
-  				title: 'Womp Womp you got it wrong💀😭',
-  				icon: 'error'
-				})
-				if (guess === 2) {
-				guess = guess + 1; 
-				document.getElementById("track").innerHTML = "🟥🟥🟥"
-				}
-				if (guess === 1) {
-				guess = guess + 1; 
-				document.getElementById("track").innerHTML = "🟥🟥⬛"
-				}
-				if (guess === 0) {
-				guess = guess + 1; 
-				document.getElementById("track").innerHTML = "🟥⬛⬛"
-				}	 
-				}
-				else {
-				Swal.fire({
-  				title: 'You Lose! Answer: ' + answer + ' This session will close automatically',
-  				icon: 'error'
-				});
-				setTimeout(() => {location.reload();}, 5000);
-				}
-		}
-		}
-	}
+    let po = [1, 2, 3, 4, 5, 6, 7];
+    let decidedpo = (Math.floor(Math.random() * po.length));
+    let ra = ["Smoldering", "Apprehensive", "Contemptuously", "Reformatory", "Reluctantly", "Imploringly", "Indignant", "Wolfishly", "Society", "Subside", "Eluded", "Conviction", "Promptly", "Severely", "Bawl"];  
+    let decidedra = (Math.floor(Math.random() * ra.length));
+    let rb = (Math.floor(Math.random() * 2));
+    let button1 = null; 
+    let button2 = null; 
+    if (rb === 0) { 
+      button2 = ra[decidedra]; 
+    }
+    else { 
+      button1 = ra[decidedra]; 
+    }
+    if (po[decidedpo] === 1) {
+      if (button2 === null) { 
+        button2 = "Smoldering"; 
+      }
+      if (button1 === null) { 
+        button1 = "Smoldering"; 
+      }
+      swal.fire ({
+        title: "The process of slowly burning while producing smoke but no flame.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Smoldering") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }) 
+      Spins = Spins + 3;
+      trackf();
+      slip.play();
+      }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Smoldering") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play();
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 2) {
+      if (button2 === null) { 
+        button2 = "Apprehensive"; 
+      }
+      if (button1 === null) { 
+        button1 = "Apprehensive"; 
+      }
+      swal.fire ({
+        title: "Worried or afraid that something negative or unpleasant will occur.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Apprehensive") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Apprehensive") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 3) {
+      if (button2 === null) { 
+        button2 = "Contemptuously"; 
+      }
+      if (button1 === null) { 
+        button1 = "Contemptuously"; 
+      }
+      swal.fire ({
+        title: "In a scornful manner that displays contempt.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Contemptuously") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Contemptuously") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 4) {
+      if (button2 === null) { 
+        button2 = "Reluctantly"; 
+      }
+      if (button1 === null) { 
+        button1 = "Reluctantly"; 
+      }
+      swal.fire ({
+        title: "Unwillingly and cautiously.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Reluctantly") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Reluctantly") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 5) {
+      if (button2 === null) { 
+        button2 = "Reformatory"; 
+      }
+      if (button1 === null) { 
+        button1 = "Reformatory"; 
+      }
+      swal.fire ({
+        title: "A facility where young offenders are sent instead of going to jail; also known as a reform school. ",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Reformatory") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Reformatory") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 6) {
+      if (button2 === null) { 
+        button2 = "Imploringly"; 
+      }
+      if (button1 === null) { 
+        button1 = "Imploringly"; 
+      }
+      swal.fire ({
+        title: "In a way that conveys a desperate or pitiful plea, such as for help or mercy; pleadingly",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Imploringly") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Imploringly") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 7) {
+      if (button2 === null) { 
+        button2 = "Indignant"; 
+      }
+      if (button1 === null) { 
+        button1 = "Indignant"; 
+      }
+      swal.fire ({
+        title: "Feeling or displaying anger or irritation over what is considered unfair treatment. ",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Indignant") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Indignant") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 8) {
+      if (button2 === null) { 
+        button2 = "Wolfishly"; 
+      }
+      if (button1 === null) { 
+        button1 = "Wolfishly"; 
+      }
+      swal.fire ({
+        title: "In a repulsive and scary manner, like a wolf",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Wolfishly") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Wolfishly") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 9) {
+      if (button2 === null) { 
+        button2 = "Society"; 
+      }
+      if (button1 === null) { 
+        button1 = "Society"; 
+      }
+      swal.fire ({
+        title: "The total number of residents in a more or less organized community.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Society") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Society") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 10) {
+      if (button2 === null) { 
+        button2 = "Subside"; 
+      }
+      if (button1 === null) { 
+        button1 = "Subside"; 
+      }
+      swal.fire ({
+        title: "Lessen in severity, violence, or intensity.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Subside") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Subside") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 11) {
+      if (button2 === null) { 
+        button2 = "Eluded"; 
+      }
+      if (button1 === null) { 
+        button1 = "Eluded"; 
+      }
+      swal.fire ({
+        title: "Avoid or flee (a threat, an adversary, or a pursuer), usually by using skill or cunning.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Eluded") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Eluded") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 12) {
+      if (button2 === null) { 
+        button2 = "Conviction"; 
+      }
+      if (button1 === null) { 
+        button1 = "Conviction"; 
+      }
+      swal.fire ({
+        title: "A formal finding of guilt for a criminal offense made by the jury's verdict or the judge's ruling in a court of law.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Conviction") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Conviction") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 13) {
+      if (button2 === null) { 
+        button2 = "Promptly"; 
+      }
+      if (button1 === null) { 
+        button1 = "Promptly"; 
+      }
+      swal.fire ({
+        title: "Without much or any delay; right away. ",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Promptly") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Promptly") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 14) {
+      if (button2 === null) { 
+        button2 = "Severely"; 
+      }
+      if (button1 === null) { 
+        button1 = "Severely"; 
+      }
+      swal.fire ({
+        title: "To an excessively high or strong degree.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Severely") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Severely") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+    if (po[decidedpo] === 15) {
+      if (button2 === null) { 
+        button2 = "Bawl"; 
+      }
+      if (button1 === null) { 
+        button1 = "Bawl"; 
+      }
+      swal.fire ({
+        title: "Loudly cry or weep.",
+        icon: "info",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#3085d6",
+        showCancelButton: true,
+        confirmButtonText: button1,
+        cancelButtonText: button2, 
+      }).then((result) => {
+      if (result.isConfirmed) {
+        if (button1 === "Bawl") {
+        swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }); 
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play(); }
+      else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+      }
+      else {
+        if (button2 === "Bawl") {
+          swal.fire ({
+        title: "Correct!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+      Spins = Spins + 3;
+      trackf(); 
+      slip.play();
+      } else { 
+        swal.fire ({
+        title: "Womp Womp You Got IT Wrong!",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+      foghorn.play(); 
+      Ma = Ma - 10000;
+      Mas = Ma.toString(); 
+      Money.innerHTML = "$" + Mas;
+      }
+    }});
+    }
+  }
+
+  }
+
+
 
 // Create an instance of the downdraft page class with the elements to animate
 let downdraftPage = new main($(".inittext"), $(".initlogo"), $(".initwait"), $(".content"), $(".version"));
@@ -198,11 +1177,26 @@ $(document).ready(() => {
     downdraftPage.init();
 });
 
-$(".guessbutton").click(function() {
-  // this refers to the element with class guessbutton that was clicked
-  downdraftPage.check(this);
-});
+function trackf() { 
+  if (Spins > 3) {
+    let real = Spins - 3; 
+    let realspins = real.toString(); 
+    document.getElementById("track").innerHTML = "🟩🟩🟩 + " + realspins;
+    console.log(realspins);
+  }
+  else if (Spins === 3) {
+    document.getElementById("track").innerHTML = "🟩🟩⬛"
+  }
+  else if (Spins === 2) {
+    document.getElementById("track").innerHTML = "🟩⬛⬛"
+  } 
+  else if (Spins === 1) {
+    document.getElementById("track").innerHTML = "⬛⬛⬛"
+  }
+}
+
+
 </script> 
 
-</body>
+</body> 
 </html> 
