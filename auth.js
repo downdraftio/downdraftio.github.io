@@ -28,7 +28,7 @@ function signin() {
    // Signed in 
    const user = userCredential.user;
    console.log("200");
-   sessionStorage.setItem("token", "qeklrj23klj2389s");
+   localStorage.setItem("token", "qeklrj23klj2389s");
    swal.fire({
     title: "Access Granted",
     icon: "success",
