@@ -37,6 +37,7 @@ function signin() {
    document.title = "Access Granted";
    document.getElementById("accessgranted").play(); 
    setTimeout(()=>{document.querySelector(".eye").style.animation = "init 3s forwards";},2000) 
+   setTimeout(()=>{location.replace("https://downdraftio.github.io")},4000); 
    // ...
  })
  .catch((error) => {
