@@ -1,0 +1,25 @@
+.background {
+    position: absolute; 
+    left: 0px; 
+    top: 0px; 
+    width: 100%;
+    height: 100%;
+}
+
+.eye { 
+    position: absolute; 
+    left: calc(50% - 250px);
+    top: calc(70% - 250px); 
+    z-index: 2; 
+    opacity: 0;
+}
+
+@keyframes preinit { 
+    from{transform: rotateY(0deg);}
+    to{transform: rotateY(360deg); top: calc(50% - 250px); opacity: 1;}
+}
+
+@keyframes init { 
+    25%{top: calc(60% - 250px);}
+    85%{transform: rotateY(360deg); top: calc(-30% - 250px); opacity: 1;}
+}
