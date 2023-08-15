@@ -28,7 +28,7 @@ function signin() {
    // Signed in 
    const user = userCredential.user;
    console.log("200");
-   localStorage.setItem("token", "qeklrj23klj2389s");
+   sessionStorage.setItem("token", "qeklrj23klj2389s");
    swal.fire({
     title: "Access Granted",
     icon: "success",
@@ -37,7 +37,7 @@ function signin() {
    document.title = "Access Granted";
    document.getElementById("accessgranted").play(); 
    setTimeout(()=>{document.querySelector(".eye").style.animation = "init 3s forwards";},2000) 
-   setTimeout(()=>{location.replace("https://downdraftio.github.io")},4000); 
+   setTimeout(()=>{location.replace("https://downdraftio.github.io/visionboard")},4000); 
    // ...
  })
  .catch((error) => {
