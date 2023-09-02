@@ -15,6 +15,7 @@ let index = -1;
 
 function init() {
 	$(textContainer).fadeIn(1000);
+	$(".adcontainer").fadeIn(1000); 
 
     document.addEventListener("click", () => {
         if (timeout == false) {
