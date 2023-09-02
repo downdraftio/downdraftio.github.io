@@ -10,6 +10,7 @@
 	background: #2D2222;
 	z-index: 2; 
 	display: block;
+	webkit-transform: translateZ(0);
 }
 
 .mainbackground {
