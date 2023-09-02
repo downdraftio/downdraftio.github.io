@@ -9,6 +9,7 @@
 	top: calc(43% - 350px);
 	background: #2D2222;
 	z-index: 2; 
+	display: block;
 }
 
 .mainbackground {
@@ -27,6 +28,7 @@
 	height: 682px; 
 	left: calc(50% - 752px);
 	top: calc(50% - 341px);
+	display: block;
 }
 
 .textcontainer { 
